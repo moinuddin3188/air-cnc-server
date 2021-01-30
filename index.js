@@ -21,6 +21,15 @@ client.connect(err => {
 
     const experiencesCollection = client.db("AirCnC").collection("Experiences");
     const homesCollection = client.db("AirCnC").collection("Homes");
+    const bookingsCollection = client.db("AirCnC").collection("Bookings");
+    const adminCollection = client.db("AirCnC").collection("Admin");
+
+    app.get('/admins', (req, res) => {
+        adminCollection.find({})
+            .toArray((err, document) => {
+                res.send(document)
+            })
+    })
 
     app.get('/experiences', (req, res) => {
         experiencesCollection.find({})
@@ -42,6 +51,13 @@ client.connect(err => {
             .toArray((err, document) => {
                 res.send(document)
             })
+    })
+
+    app.post('/booking', (req, res) => {
+        bookingsCollection.insertOne(req.body)
+        .then(result => {
+
+        })
     })
 
 
